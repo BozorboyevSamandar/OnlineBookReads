@@ -11,12 +11,19 @@ class Book(models.Model):
     description = models.TextField()
     isbn = models.CharField(max_length=17)
 
+    def __str__(self):
+        return self.title
+
 
 class Author(models.Model):
     first_name = models.CharField(max_length=250)
     last_name = models.CharField(max_length=250)
     email = models.EmailField()
     bio = models.TextField()
+
+    @property
+    def full_name(self):
+        return self.first_name, self.last_name
 
 
 class BookAuthor(models.Model):
