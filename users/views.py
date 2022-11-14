@@ -7,3 +7,8 @@ from django.views import View
 class Register(View):
     def get(self, request):
         return render(request, "users/register.html")
+
+
+class LoginView(View):
+    def get(self, request):
+        return render(request, "users/login.html")
