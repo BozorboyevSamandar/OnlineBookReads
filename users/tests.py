@@ -79,3 +79,5 @@ class RegistrationTestCase(TestCase):
 
         # check that the form contains the error message
         self.assertEqual(response, 'form', 'username', "A user with that username already exists.")
+
+

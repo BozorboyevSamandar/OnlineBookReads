@@ -14,6 +14,12 @@ class UserCreateForm(forms.ModelForm):
 
         return user
 
+
+class UserLoginForm(forms.Form):
+    username = forms.CharField(max_length=150)
+    password = forms.CharField(max_length=15)
+
+
 # class UserCreateForm(forms.Form):
 #     username = forms.CharField(max_length=200)
 #     email = forms.EmailField(max_length=200)
