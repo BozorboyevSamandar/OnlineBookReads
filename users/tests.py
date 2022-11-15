@@ -56,3 +56,26 @@ class RegistrationTestCase(TestCase):
         self.assertEqual(user_count, 0)
         self.assertFormError(response, "form", "email", "This field is required.")
 
+    def test_unique_username(self):
+        # create user
+        user = User.objects.create(username='salih', first_name='salih')
+        user.set_password('qwqw1212')
+        user.save()
+
+        # try to create another user with that same username
+        response = self.client.post(
+            reverse("users:register"),
+            data={
+                "username": 'salih',
+                "first_name": "salih",
+                "last_name": "bilol",
+                "email": "salih@gmail.com",
+                "password": "qwqw1212",
+            }
+        )
+        # check that the second user was to create
+        user_count = User.objects.count()
+        self.assertEqual(user_count, 1)
+
+        # check that the form contains the error message
+        self.assertEqual(response, 'form', 'username', "A user with that username already exists.")
