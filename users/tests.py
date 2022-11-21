@@ -83,11 +83,11 @@ class RegistrationTestCase(TestCase):
 
 
 class LoginTestCase(TestCase):
+    def setUp(self):
+        self.db_user = User.objects.create(username='salih', first_name='salih', last_name='bilal')
+        self.db_user.set_password('qwqw1212')
+        self.db_user.save()
     def test_successful_login(self):
-        user = User.objects.create(username='salih', first_name='bilal')
-        user.set_password('qwqw1212')
-        user.save()
-
         self.client.post(
             reverse('users:login'),
             data={
@@ -101,10 +101,6 @@ class LoginTestCase(TestCase):
         self.assertTrue(user.is_authenticated)
 
     def test_worng_credentials(self):
-        user = User.objects.create(username='salih', first_name='bilal')
-        user.set_password('qwqw1212')
-        user.save()
-
         self.client.post(
             reverse('users:login'),
             data={
@@ -115,7 +111,15 @@ class LoginTestCase(TestCase):
 
         user = get_user(self.client)
 
-        self.assertTrue(user.is_authenticated)
+        self.assertTrue(self, user.is_authenticated)
+
+    def test_logout(self):
+        self.client.login(username='salih', password='qwqw1212')
+
+        self.client.get(reverse('users:logout'))
+
+        user = get_user(self.client)
+        self.assertFalse(user.is_authenticated)
 
 
 class ProfileTestCase(TestCase):
