@@ -2,13 +2,18 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-    <h1>Register</h1>
 
-    <form method="post" action="{% url 'users:register' %}">
-        {% csrf_token %}
+    <div class="container">
 
-        {{ form.as_p }}
+        <h1>Register</h1>
 
-        <button type="submit">Submit</button>
-    </form>
+        <form method="post" action="{% url 'users:register' %}">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">Submit</button>
+        </form>
+
+    </div>
 {% endblock %}

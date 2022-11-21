@@ -61,7 +61,7 @@ class LoginView(View):
 class LogoutView(View):
     def get(self, request):
         logout(request)
-        messages.info(request, 'You have successfully logged out.')
+        messages.warning(request, 'You have successfully logged out.')
         return redirect('landing_page')
 
 

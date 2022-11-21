@@ -2,16 +2,17 @@
 {% block title %}Books lists page{% endblock %}
 
 {% block content %}
-<h1>Books</h1>
+    <div class="container">
+        <h1>Books</h1>
 
-{% if books %}
-    <ul>
-        {% for book in books %}
-            <li><a href="{% url 'books-detail' book.id %}">{{ book.title }}</a></li>
-        {% endfor %}
-    </ul>
-{% else %}
-    No book found
-{% endif %}
-
+        {% if books %}
+            <ul>
+                {% for book in books %}
+                    <li><a href="{% url 'books-detail' book.id %}">{{ book.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            No book found
+        {% endif %}
+    </div>
 {% endblock %}

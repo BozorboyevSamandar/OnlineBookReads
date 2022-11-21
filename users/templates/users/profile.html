@@ -2,11 +2,15 @@
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-    <h1>Profile page</h1>
+        <div class="container">
 
-    <p>Username: {{ user.username }}</p>
-    <p>First name: {{ user.first_name }}</p>
-    <p>Last name: {{ user.last_name }}</p>
-    <p>Email: {{ user.email }}</p>
+            <h1>Profile page</h1>
+
+            <p>Username: {{ user.username }}</p>
+            <p>First name: {{ user.first_name }}</p>
+            <p>Last name: {{ user.last_name }}</p>
+            <p>Email: {{ user.email }}</p>
+        </div>
+
 
 {% endblock %}

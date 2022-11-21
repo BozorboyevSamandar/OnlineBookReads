@@ -2,10 +2,14 @@
 {% block title %}Login page{% endblock %}
 
 {% block content %}
-    <h1>Login</h1>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Log in</button>
-    </form>
+    <div class="container">
+        <h1>Login</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Log in</button>
+            <span>No account? Then, <a href="{% url 'users:register' %}">get register</a></span>
+        </form>
+    </div>
+
 {% endblock %}
