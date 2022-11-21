@@ -6,12 +6,16 @@
 </head>
 <body>
 <h1>Books</h1>
-<ul>
-    {% for book in books %}
-        <li><a href="{% url 'book-detail' book.id %}">{{ book.title }}</a></li>
-    {% endfor %}
-</ul>
 
+{% if books %}
+    <ul>
+        {% for book in books %}
+            <li><a href="{% url 'book-detail' book.id %}">{{ book.title }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    No book found
+{% endif %}
 
 </body>
 </html>
