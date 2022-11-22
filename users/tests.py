@@ -87,6 +87,7 @@ class LoginTestCase(TestCase):
         self.db_user = User.objects.create(username='salih', first_name='salih', last_name='bilal')
         self.db_user.set_password('qwqw1212')
         self.db_user.save()
+
     def test_successful_login(self):
         self.client.post(
             reverse('users:login'),
@@ -140,3 +141,30 @@ class ProfileTestCase(TestCase):
         self.assertContains(response, user.first_name)
         self.assertContains(response, user.last_name)
         self.assertContains(response, user.email)
+
+    def test_user_profile(self):
+        user = User.objects.create(
+            username='Salih',
+            first_name='Salih',
+            last_name='Bilal',
+            email='salih@gmail.com',
+        )
+
+        user.set_password('qwqw1212')
+        user.save()
+        self.client.login(username='Salih', password='qwqw1212')
+
+        response = self.client.post(
+            reverse('users:profile-edit'),
+            data={
+                "username": "Salih",
+                "first_name": "Salih",
+                "last_name": 'Jon',
+                'email': 'user@gmail.com'
+            }
+
+        )
+        user = User.objects.get(pk=user.pk)
+
+        self.assertEqual(user.last_name, 'Jon')
+        self.assertEqual(user.email, 'user@gmail.com')
