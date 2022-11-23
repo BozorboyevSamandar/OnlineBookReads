@@ -6,4 +6,4 @@ from django.db import models
 
 
 class CustomUser(AbstractUser):
-    pass
+    profile_pic = models.ImageField(default='default.jpg')

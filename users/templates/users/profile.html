@@ -2,17 +2,22 @@
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-        <div class="container">
+    <div class="container">
 
-            <h1>Profile page</h1>
+        <h1>Profile page</h1>
+        <img class="profile-pic" src="{{ user.profile_pic.url }}" alt="">
 
+        <div>
             <a href="{% url 'users:profile-edit' %}">edit profile</a>
+
 
             <p>Username: {{ user.username }}</p>
             <p>First name: {{ user.first_name }}</p>
             <p>Last name: {{ user.last_name }}</p>
             <p>Email: {{ user.email }}</p>
         </div>
+
+    </div>
 
 
 {% endblock %}

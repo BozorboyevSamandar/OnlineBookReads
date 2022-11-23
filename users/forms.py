@@ -18,13 +18,12 @@ class UserCreateForm(forms.ModelForm):
 class UserUpdateProfile(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ('username', 'first_name', 'last_name', 'email')
+        fields = ('username', 'first_name', 'last_name', 'email', 'profile_pic')
 
 
 class UserLoginForm(forms.Form):
     username = forms.CharField(max_length=150)
     password = forms.CharField(max_length=15)
-
 
 # class UserCreateForm(forms.Form):
 #     username = forms.CharField(max_length=200)

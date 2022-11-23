@@ -79,7 +79,11 @@ class ProfileUpdateView(LoginRequiredMixin, View):
         return render(request, 'users/profile_edit.html', context)
 
     def post(self, request):
-        user_update_form = UserUpdateProfile(instance=request.user, data=request.POST)
+        user_update_form = UserUpdateProfile(
+            instance=request.user,
+            data=request.POST,
+            files=request.FILES
+        )
         context = {
             'form': user_update_form
         }
