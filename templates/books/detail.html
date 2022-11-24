@@ -14,4 +14,21 @@
             </div>
         </div>
     </div>
+    <div class="container mt-5">
+        <h4>Reviews</h4>
+        <hr>
+        {% for review in book.bookreview_set.all %}
+            <div class="row">
+                <div class="col-1 me-3">
+                    <img class="small-img" src="{{ review.user.profile_pic.url }}" alt="">
+                </div>
+                <div class="col-6">
+                    <b>{{ review.user.username }}</b> rated it {{ review.stars }} stars <span
+                        class="fw-lighter">{{ review.created_at }}</span>
+                    <p class="mt-2 font-monospace fs-6">{{ review.comment }}</p>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
 {% endblock %}
