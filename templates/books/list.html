@@ -6,11 +6,20 @@
         <h1>Books</h1>
 
         {% if books %}
-            <ul>
-                {% for book in books %}
-                    <li><a href="{% url 'books-detail' book.id %}">{{ book.title }}</a></li>
-                {% endfor %}
-            </ul>
+            {% for book in books %}
+                <div class="row mb-4">
+                    <div class="col-3">
+                        <img class="book-img" src="{{ book.picture.url }}" alt="">
+                    </div>
+                    <div class="col-6">
+                        <a href="{% url 'books-detail' book.id %}">{{ book.title }}</a>
+                        <p href="{% url 'books-detail' book.id %}">{{ book.description }}</p>
+
+                    </div>
+                </div>
+
+            {% endfor %}
+
         {% else %}
             No book found
         {% endif %}
