@@ -50,7 +50,7 @@ class LoginView(View):
 
             messages.info(request, 'You have Successfully logged in.')
 
-            return redirect('books-list')
+            return redirect('books:list')
         else:
             context = {
                 'form': login_form
