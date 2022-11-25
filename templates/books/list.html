@@ -22,8 +22,8 @@
                         <img class="book-img" src="{{ book.picture.url }}" alt="">
                     </div>
                     <div class="col-6">
-                        <a href="{% url 'books-detail' book.id %}">{{ book.title }}</a>
-                        <p href="{% url 'books-detail' book.id %}">{{ book.description }}</p>
+                        <a href="{% url 'books:detail' book.id %}">{{ book.title }}</a>
+                        <p>{{ book.description }}</p>
 
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                     {% if page_obj.has_previous %}
                         <li class="page=item"><a class="page-link" href="?page=1">&laquo; first</a></li>
                         <li class="page-item"><a class="page-link"
-                                                 href="{% url 'books-list' %}?page={{ page_obj.previous_page_number }}">previous</a>
+                                                 href="{% url 'books:list' %}?page={{ page_obj.previous_page_number }}">previous</a>
                         </li>
                     {% endif %}
 
@@ -47,7 +47,7 @@
                     <li class="page-item">
                         {% if page_obj.has_next %}
                             <a class="page-link"
-                               href="{% url 'books-list' %}?page={{ page_obj.next_page_number }}">Next</a>
+                               href="{% url 'books:list' %}?page={{ page_obj.next_page_number }}">Next</a>
                             <li class="page=item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last&raquo;</a>
                             </li>
                         {% endif %}

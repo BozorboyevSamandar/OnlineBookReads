@@ -1,8 +1,10 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views import View
 from django.views.generic import ListView, DetailView
-from .models import Book
+from .models import Book, BookReview
+from .forms import BookReviewForm
 
 
 # Create your views here.
@@ -35,13 +37,39 @@ class BookListView(View):
         return render(request, 'books/list.html', context)
 
 
-class BookDetailView(DetailView):
-    template_name = 'books/detail.html'
-    pk_url_kwarg = 'id'
-    model = Book
+# class BookDetailView(DetailView):
+#     template_name = 'books/detail.html'
+#     pk_url_kwarg = 'id'
+#     model = Book
 
-# class BookDetailView(View):
-#     def get(self, request, id):
-#         book = Book.objects.get(id=id)
-#         context = {'book': book}
-#         return render(request, 'books/detail.html', context)
+class BookDetailView(View):
+    def get(self, request, id):
+        book = Book.objects.get(id=id)
+        review_form = BookReviewForm()
+
+        context = {
+            'book': book,
+            'review_form': review_form,
+        }
+        return render(request, 'books/detail.html', context)
+
+
+class AddReview(View):
+    def post(self, request, id):
+        book = Book.objects.get(id=id)
+        review_form = BookReviewForm(data=request.POST)
+        context = {
+            'book': book,
+            'review_form': review_form,
+        }
+        if review_form.is_valid():
+            BookReview.objects.create(
+                book=book,
+                user=request.user,
+                stars=review_form.cleaned_data['stars'],
+                comment=review_form.cleaned_data['comment'],
+            )
+
+            return redirect(reverse('books:detail', kwargs={"id": book.id}))
+
+        return render(request, "books/detail.html", context)
