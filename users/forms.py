@@ -14,15 +14,6 @@ class UserCreateForm(forms.ModelForm):
         user.set_password(self.cleaned_data['password'])
         user.save()
 
-        # send email
-        # if user.email:
-        #     send_mail(
-        #         "Welcome to Online Book web site"
-        #         f"Hi, {user.username}. Welcome to OnlineBook website. Enjoy the books and reviews."
-        #         "samandarbozorboyev29@gmail.com",
-        #         [user.email]
-        #     )
-
         return user
 
 

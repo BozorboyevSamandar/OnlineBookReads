@@ -1,3 +1,5 @@
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -73,3 +75,47 @@ class AddReview(View):
             return redirect(reverse('books:detail', kwargs={"id": book.id}))
 
         return render(request, "books/detail.html", context)
+
+
+class EditReview(LoginRequiredMixin, View):
+    def get(self, request, book_id, review_id):
+        book = Book.objects.get(id=book_id)
+        review = book.bookreview_set.get(id=review_id)
+        review_form = BookReviewForm(instance=review)
+
+        context = {
+            'book': book,
+            'review': review,
+            'review_form': review_form
+        }
+        return render(request, 'books/edit_review.html', context)
+
+    def post(self, request, book_id, review_id):
+        book = Book.objects.get(id=book_id)
+        review = book.bookreview_set.get(id=review_id)
+        review_form = BookReviewForm(instance=review, data=request.POST)
+
+        if review_form.is_valid():
+            review_form.save()
+            return redirect(reverse('books:detail', kwargs={"id": book.id}))
+
+        return render(request, 'books/edit_review.html', {'book': book, 'review': review, 'review_form': review_form})
+
+
+class ConfirmDeleteReview(LoginRequiredMixin, View):
+    def get(self, request, book_id, review_id):
+        book = Book.objects.get(id=book_id)
+        review = book.bookreview_set.get(id=review_id)
+        return render(request, 'books/confirm_delete_review.html', {'book': book, 'review': review})
+
+
+class DeleteReview(LoginRequiredMixin, View):
+    def get(self, request, book_id, review_id):
+        book = Book.objects.get(id=book_id)
+        review = book.bookreview_set.get(id=review_id)
+
+        review.delete()
+        messages.info(request, 'You successfully deleted this review')
+
+        return redirect(reverse('books:detail', kwargs={"id": book.id}))
+
