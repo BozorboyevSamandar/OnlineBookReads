@@ -148,3 +148,8 @@ AUTH_USER_MODEL = 'users.CustomUser'
 # EMAIL_PORT = 587
 # EMAIL_USE_TLS = True
 # EMAIL_USE_SSL = False
+
+
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 2
+}
