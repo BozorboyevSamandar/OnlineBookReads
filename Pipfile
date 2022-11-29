@@ -9,6 +9,7 @@ pillow = "*"
 django-crispy-forms = "*"
 crispy-bootstrap5 = "*"
 celery = "*"
+djangorestframework = "*"
 
 [dev-packages]
 
